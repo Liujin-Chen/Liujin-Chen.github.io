@@ -1,0 +1,102 @@
+/* ==========================================================================
+   Liujin Chen — design tokens, self-hosted fonts, base styles
+   Paper theme is the default; [data-theme="chalk"] switches to the USF-green
+   chalkboard used by the poster pages. All URLs are relative (works on file://).
+   ========================================================================== */
+
+/* ---- Fonts (SIL OFL 1.1; see assets/fonts/OFL-*.txt) ------------------- */
+@font-face{font-family:"Fraunces";font-style:normal;font-weight:300 700;font-display:swap;
+  src:url(../fonts/fraunces-latin.woff2) format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Kalam";font-style:normal;font-weight:300;font-display:swap;src:url(../fonts/kalam-300-latin.woff2) format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Kalam";font-style:normal;font-weight:400;font-display:swap;src:url(../fonts/kalam-400-latin.woff2) format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Kalam";font-style:normal;font-weight:700;font-display:swap;src:url(../fonts/kalam-700-latin.woff2) format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Caveat";font-style:normal;font-weight:400 700;font-display:swap;src:url(../fonts/caveat-latin.woff2) format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+/* Alias families used by the chalkboard pages (they replace Apple-only Chalkboard SE / Noteworthy) */
+@font-face{font-family:"Chalk";font-style:normal;font-weight:700;font-display:swap;src:url(../fonts/kalam-700-latin.woff2) format("woff2")}
+@font-face{font-family:"Chalk";font-style:normal;font-weight:400;font-display:swap;src:url(../fonts/kalam-400-latin.woff2) format("woff2")}
+@font-face{font-family:"Note";font-style:normal;font-weight:400;font-display:swap;src:url(../fonts/kalam-400-latin.woff2) format("woff2")}
+/* Metric-matched fallback keeps layout shift small while Fraunces loads */
+@font-face{font-family:"Fraunces Fallback";src:local("Georgia");size-adjust:103%;ascent-override:94%;descent-override:26%;line-gap-override:0%}
+
+/* ---- Tokens -------------------------------------------------------------- */
+:root{
+  color-scheme:light;
+  /* USF brand (never used directly in components) */
+  --usf-green:#006747;--usf-evergreen:#005432;--usf-green-lt:#0A7653;--usf-gold:#CFC493;--usf-sand:#EDEBD1;
+  --usf-sea:#A8D0C6;--usf-sea-2:#80B0A6;--usf-soft:#303434;--usf-slate:#466069;
+  /* semantic — paper theme */
+  --bg:#F6F2E8;--sheet:#FBF8F1;--ivory:#FFFDF8;--sand:var(--usf-sand);
+  --ink:#2B2F2E;--ink-2:#466069;--muted:#6B7470;
+  --accent:#006747;--accent-2:#005432;
+  --brass:#947E38;--brass-text:#7A6B2E;--gold:#CFC493;--sea:#A8D0C6;--sea-2:#80B0A6;
+  --pencil:rgba(48,52,52,.32);--rule:rgba(48,52,52,.14);--key-black:#303434;
+  --dust:148,126,56;
+  --shadow-paper:0 18px 40px -18px rgba(48,52,52,.35),0 1px 3px rgba(48,52,52,.08);
+  --focus:#006747;
+  /* type */
+  --f-serif:"Fraunces","Fraunces Fallback","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --f-hand:"Kalam","Chalkboard SE","Comic Neue","Comic Sans MS",cursive;
+  --f-script:"Caveat","Kalam","Chalkboard SE",cursive;
+  --fs-body:clamp(17px,1rem + .3vw,20px);
+  /* layout & motion */
+  --wrap:1100px;--gutter:clamp(1rem,4vw,3rem);
+  --ease-out:cubic-bezier(.2,.7,.2,1);
+}
+[data-theme="chalk"]{
+  color-scheme:dark;
+  --bg:var(--usf-evergreen);--sheet:var(--usf-sand);--ivory:var(--usf-sand);
+  --ink:#fff;--ink-2:var(--usf-sand);--muted:rgba(237,235,209,.72);
+  --accent:var(--usf-gold);--accent-2:#fff;
+  --brass:var(--usf-gold);--brass-text:var(--usf-gold);
+  --pencil:rgba(237,235,209,.45);--rule:rgba(237,235,209,.32);
+  --dust:255,255,255;--focus:#fff;
+  --shadow-paper:0 26px 60px rgba(0,0,0,.42),0 2px 0 rgba(0,0,0,.05);
+}
+
+/* ---- Base ---------------------------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;background:var(--bg)}
+body{margin:0;min-height:100vh;min-height:100dvh;color:var(--ink);background:var(--bg);
+  font-family:var(--f-serif);font-size:var(--fs-body);line-height:1.55;font-optical-sizing:auto;
+  -webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+img,svg,video{display:block;max-width:100%} img{height:auto}
+h1,h2,h3,p,ul,ol,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:.2em;text-decoration-color:var(--brass)}
+a:hover{color:var(--accent-2)}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+dialog:not([open]){display:none}
+:focus{outline:none}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:2px}
+::selection{background:rgba(207,196,147,.55)}
+.skip{position:absolute;left:1rem;top:-4rem;z-index:100;padding:.5rem .9rem;border-radius:4px;background:var(--ink);color:var(--bg);font-family:var(--f-hand);text-decoration:none}
+.skip:focus{top:1rem}
+.visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.wrap{width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gutter)}
+.hand{font-family:var(--f-hand)} .script{font-family:var(--f-script)}
+.dust-layer{position:fixed;inset:0;z-index:60;pointer-events:none}
+
+/* ---- Motion & data preferences ------------------------------------------ */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .ambient,.dust-layer{display:none!important}
+  ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}
+}
+@media (prefers-reduced-data:reduce){.ambient{display:none!important}}
+
+/* ---- Print --------------------------------------------------------------- */
+@media print{
+  :root,[data-theme="chalk"]{--bg:#fff;--ink:#000;--ink-2:#333;--muted:#444;--sheet:#fff;--ivory:#fff}
+  body{background:#fff;color:#000}
+  body::before,.ambient,.dust-layer,.piano,.skip,.lightbox,.board,.keys,.site-nav .squig,.sound-toggle{display:none!important}
+  .mount,.sheet,.tilt,.pkey{box-shadow:none!important;transform:none!important}
+  .chalk-fx,h1,h2{filter:none!important}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:.85em}
+  .cloud.placed{display:flex!important;position:static!important;height:auto!important}
+  .cloud .w{position:static!important}
+}
